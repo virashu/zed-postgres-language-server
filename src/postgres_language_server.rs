@@ -36,7 +36,7 @@ impl PostgresLanguageServerExtension {
 
         let (platform, arch) = zed::current_platform();
         let asset_name = format!(
-            "postgres-language-server_{arch}-{os}",
+            "postgres-language-server_{arch}-{os}{suffix}",
             arch = match arch {
                 zed::Architecture::Aarch64 => "aarch64",
                 zed::Architecture::X86 => "x86",
@@ -46,6 +46,10 @@ impl PostgresLanguageServerExtension {
                 zed::Os::Mac => "apple-darwin",
                 zed::Os::Linux => "unknown-linux-gnu",
                 zed::Os::Windows => "pc-windows-msvc",
+            },
+            suffix = match platform {
+                zed::Os::Windows => ".exe",
+                _ => "",
             }
         );
 
